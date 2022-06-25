@@ -17,7 +17,7 @@ export default defineComponent({
         textUpdate(text: string) {
             this.$emit('update:modelValue', text)
         }
-    },
+    }, 
     emits: ['update:modelValue']
 })
 </script>
