@@ -14,6 +14,10 @@ export default defineComponent({
         value: {
             type: String,
             required: true
+        },
+        type: {
+            type: String,
+            default: "text"
         }
     },
     computed: {
@@ -22,7 +26,7 @@ export default defineComponent({
         }
     },
     methods: {
-        textUpdate(text: string) {
+        textUpdate(text: string | number) {
             this.$emit('input', text)
         }
     }, 
@@ -35,7 +39,7 @@ export default defineComponent({
         <div class="col-span-3 sm:col-span-2">
             <label for="company-website" class="block text-sm font-medium text-gray-700"> {{label}} </label>
             <div class="mt-1 flex rounded-md shadow-sm">
-                <input type="text" 
+                <input :type="type" 
                     :name="name"
                     :value="value"
                     class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300" 

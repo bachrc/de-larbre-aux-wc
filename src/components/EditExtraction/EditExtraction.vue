@@ -14,17 +14,17 @@ export default defineComponent({
       }
     },
     methods: {
-      updatePoidsCafe(poids: string) {
-        this.$store.commit(MutationType.UPDATE_POIDS_CAFE, {extractionId: this.extractionId, poids: parseInt(poids)})
+      updatePoidsCafe(poids: number) {
+        this.$store.commit(MutationType.UPDATE_POIDS_CAFE, {extractionId: this.extractionId, poids})
       },
-      updatePoidsBoisson(poids: string) {
-        this.$store.commit(MutationType.UPDATE_POIDS_BOISSON, {extractionId: this.extractionId, poids: parseInt(poids)})
+      updatePoidsBoisson(poids: number) {
+        this.$store.commit(MutationType.UPDATE_POIDS_BOISSON, {extractionId: this.extractionId, poids})
       },
       addTds() {
         this.$store.commit(MutationType.ADD_TDS_TO_EXTRACTION, this.extractionId)
       },
-      updateTds(value: string, index: number) {
-        this.$store.commit(MutationType.UPDATE_TDS, {extractionId: this.extractionId, index, value: parseFloat(value)})
+      updateTds(value: number, index: number) {
+        this.$store.commit(MutationType.UPDATE_TDS, {extractionId: this.extractionId, index, value})
       },
       removeTds(index: number) {
         this.$store.commit(MutationType.REMOVE_TDS, {extractionId: this.extractionId, index})
@@ -41,11 +41,11 @@ export default defineComponent({
 <div class="flex md:flex-row flex-col">
   <section class="w-1/2 flex flex-col">
     <div class="flex flex-row">
-      <InputField label="Poids de café" placeholder="Poids de café" unit="g" value="" class="w-1/2" @input="updatePoidsCafe"/>
-      <InputField label="Poids de la boisson" placeholder="Poids de boisson" value="" unit="g" class="w-1/2" @input="updatePoidsBoisson" />
+      <InputField type="number" label="Poids de café" placeholder="Poids de café" unit="g" value="" class="w-1/2" @input="updatePoidsCafe" />
+      <InputField type="number" label="Poids de la boisson" placeholder="Poids de boisson" value="" unit="g" class="w-1/2" @input="updatePoidsBoisson" />
     </div>
     <div v-for="(releve, index) in releves" class="flex flex-row">
-      <InputField :label="'Relevé ' + (index + 1)" placeholder="Relevé de TDS" unit="%" :value="releve.toString()" @input="(value: string) => updateTds(value, index)" />
+      <InputField type="number" :label="'Relevé ' + (index + 1)" placeholder="Relevé de TDS" unit="%" :value="releve.toString()" @input="(value: number) => updateTds(value, index)" />
       <Button text="Supprimer.." @click="() => removeTds(index)" />
     </div>
     <div>
