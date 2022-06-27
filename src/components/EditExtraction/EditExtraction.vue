@@ -10,18 +10,24 @@ export default defineComponent({
         return this.$route.params.id as string;
       },
       releves(): number[] {
-        return this.$store.getters.getExtractionById(this.extractionId).releves
+        return this.$store.getters.getRelevesFromExtraction(this.extractionId)
       }
     },
     methods: {
-      updatePoidsCafe(numero: number, poids: string) {
+      updatePoidsCafe(poids: string) {
         this.$store.commit(MutationType.UPDATE_POIDS_CAFE, {extractionId: this.extractionId, poids: parseInt(poids)})
       },
-      updatePoidsBoisson(numero: number, poids: string) {
+      updatePoidsBoisson(poids: string) {
         this.$store.commit(MutationType.UPDATE_POIDS_BOISSON, {extractionId: this.extractionId, poids: parseInt(poids)})
       },
       addTds() {
         this.$store.commit(MutationType.ADD_TDS_TO_EXTRACTION, this.extractionId)
+      },
+      updateTds(value: string, index: number) {
+        this.$store.commit(MutationType.UPDATE_TDS, {extractionId: this.extractionId, index, value: parseFloat(value)})
+      },
+      removeTds(index: number) {
+        this.$store.commit(MutationType.REMOVE_TDS, {extractionId: this.extractionId, index})
       }
     },
     components: {
@@ -35,8 +41,12 @@ export default defineComponent({
 <div class="flex md:flex-row flex-col">
   <section class="w-1/2 flex flex-col">
     <div class="flex flex-row">
-      <InputField label="Poids de café" placeholder="Poids de café" unit="g" class="w-1/2" @update:model-value="updatePoidsCafe"/>
-      <InputField label="Poids de la boisson" placeholder="Poids de boisson" unit="g" class="w-1/2" @update:model-value="updatePoidsBoisson" />
+      <InputField label="Poids de café" placeholder="Poids de café" unit="g" value="" class="w-1/2" @input="updatePoidsCafe"/>
+      <InputField label="Poids de la boisson" placeholder="Poids de boisson" value="" unit="g" class="w-1/2" @input="updatePoidsBoisson" />
+    </div>
+    <div v-for="(releve, index) in releves" class="flex flex-row">
+      <InputField :label="'Relevé ' + (index + 1)" placeholder="Relevé de TDS" unit="%" :value="releve.toString()" @input="(value: string) => updateTds(value, index)" />
+      <Button text="Supprimer.." @click="() => removeTds(index)" />
     </div>
     <div>
       <Button text="Ajouter un relevé" @click="addTds" />

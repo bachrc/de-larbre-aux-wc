@@ -20,8 +20,7 @@ export default defineComponent({
 </script>
 
 <template>
-<div class="flex flex-col">
-    
+<div class="flex flex-col">  
     <Button text="Ajouter une extraction" @click="addExtraction"></Button>
     <div>
         <div v-for="extraction in extractions">

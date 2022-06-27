@@ -11,14 +11,22 @@ export default defineComponent({
             default: ""
         },
         unit: String,
-        modelValue: String,
+        value: {
+            type: String,
+            required: true
+        }
+    },
+    computed: {
+        name() {
+            return this.label.toLowerCase()
+        }
     },
     methods: {
         textUpdate(text: string) {
-            this.$emit('update:modelValue', text)
+            this.$emit('input', text)
         }
     }, 
-    emits: ['update:modelValue']
+    emits: ['input']
 })
 </script>
 
@@ -28,8 +36,8 @@ export default defineComponent({
             <label for="company-website" class="block text-sm font-medium text-gray-700"> {{label}} </label>
             <div class="mt-1 flex rounded-md shadow-sm">
                 <input type="text" 
-                    name="company-website" 
-                    id="company-website" 
+                    :name="name"
+                    :value="value"
                     class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300" 
                     :class="{
                         'rounded-r-md': !unit
