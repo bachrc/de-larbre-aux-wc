@@ -2,6 +2,7 @@
 import { defineComponent } from "vue"
 import InputField from "../common/InputField.vue"
 import Button from "../common/Button.vue"
+import TdsChart from "../TdsChart.vue"
 import { MutationType } from "../../mutations"
 
 export default defineComponent({
@@ -32,7 +33,8 @@ export default defineComponent({
     },
     components: {
     InputField,
-    Button
+    Button,
+    TdsChart
 }
 })
 </script>
@@ -53,7 +55,7 @@ export default defineComponent({
     </div>
   </section>
   <section class="w-1/2">
-    Non
+    <TdsChart />
   </section>  
 </div>
 </template>
