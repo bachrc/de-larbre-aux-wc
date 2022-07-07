@@ -4,6 +4,7 @@ import InputField from "../common/InputField.vue"
 import Button from "../common/Button.vue"
 import TdsChart from "../TdsChart.vue"
 import { MutationType } from "../../mutations"
+import { Extraction } from "../../models"
 
 export default defineComponent({
   computed: {
@@ -12,7 +13,10 @@ export default defineComponent({
     },
     releves(): number[] {
       return this.$store.getters.getRelevesFromExtraction(this.extractionId)
-    }
+    },
+    extraction(): Extraction {
+      return this.$store.getters.getExtractionById(this.extractionId)
+    },
   },
   methods: {
     updatePoidsCafe(poids: number) {
@@ -43,9 +47,9 @@ export default defineComponent({
   <div class="flex md:flex-row flex-col">
     <section class="w-1/2 flex flex-col">
       <div class="flex flex-row">
-        <InputField type="number" label="Poids de café" placeholder="Poids de café" unit="g" value="" class="w-1/2"
+        <InputField type="number" label="Poids de café" placeholder="Poids de café" unit="g" :value="extraction.poidsCafe.toString()" class="w-1/2"
           @input="updatePoidsCafe" />
-        <InputField type="number" label="Poids de la boisson" placeholder="Poids de boisson" value="" unit="g"
+        <InputField type="number" label="Poids de la boisson" placeholder="Poids de boisson" :value="extraction.poidsBoisson.toString()" unit="g"
           class="w-1/2" @input="updatePoidsBoisson" />
       </div>
       <div v-for="(releve, index) in releves" class="flex flex-row">
@@ -58,7 +62,7 @@ export default defineComponent({
       </div>
     </section>
     <section class="w-1/2">
-      <TdsChart extraction-id="extractionId" />
+      <TdsChart :extraction-id="extractionId" />
     </section>
   </div>
 </template>
