@@ -13,6 +13,12 @@ export default defineComponent({
     methods: {
         addExtraction() {
             this.$store.commit(MutationType.ADD_EXTRACTION);
+        },
+        deleteExtraction(extractionId: string) {
+            this.$store.commit(MutationType.DELETE_EXTRACTION, { extractionId })
+        },
+        deleteAllExtractions() {
+            this.$store.commit(MutationType.DELETE_ALL_EXTRACTIONS)
         }
     },
     components: { Button }
@@ -20,12 +26,16 @@ export default defineComponent({
 </script>
 
 <template>
-<div class="flex flex-col">  
-    <Button text="Ajouter une extraction" @click="addExtraction"></Button>
-    <div>
-        <div v-for="extraction in extractions">
-            <router-link :to="{ name: 'extraction', params: { id: extraction.id }}">{{ extraction.id }}</router-link>
+    <div class="flex flex-col">
+        <Button text="Ajouter une extraction" @click="addExtraction"></Button>
+        <Button text="Tout supprimer" @click="deleteAllExtractions"></Button>
+        <div>
+            <div v-for="extraction in extractions">
+                <router-link :to="{ name: 'extraction', params: { id: extraction.id } }">
+                    {{ extraction.name }}
+                </router-link>
+                <font-awesome-icon icon="fa-solid fa-trash" @click="deleteExtraction(extraction.id)" />
+            </div>
         </div>
     </div>
-</div>
 </template>

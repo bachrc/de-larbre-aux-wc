@@ -2,28 +2,10 @@
 import { defineComponent } from "vue"
 import { Scatter } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js'
-import { Extraction } from "../models"
-import { TChartData } from "vue-chartjs/dist/types"
+import { Extraction, Releve } from "../models"
 import annotationPlugin from 'chartjs-plugin-annotation';
 
-
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, annotationPlugin)
-
-class Releve {
-    poidsCafe: number;
-    poidsBoisson: number;
-    releveTds: number;
-
-    constructor(releveTds: number, poidsCafe: number, poidsBoisson: number) {
-        this.releveTds = releveTds;
-        this.poidsCafe = poidsCafe;
-        this.poidsBoisson = poidsBoisson;
-    }
-
-    get yield(): number {
-        return this.releveTds * (this.poidsBoisson / this.poidsCafe)
-    }
-}
 
 export default defineComponent({
     components: { Scatter },
@@ -37,15 +19,10 @@ export default defineComponent({
         extraction(): Extraction {
             return this.$store.getters.getExtractionById(this.extractionId)
         },
-        releves(): Releve[] {
-            let extraction = this.extraction;
-
-            return extraction.relevesTDS.map(releve => new Releve(releve, extraction.poidsCafe, extraction.poidsBoisson))
-        },
-        chartData(): TChartData<"scatter", Releve[]> {
+        chartData(): any {
             return {
                 datasets: [{
-                    data: this.releves,
+                    data: this.extraction.computeReleves(),
                     showLine: true
                 }]
             }
@@ -173,7 +150,7 @@ export default defineComponent({
     },
     methods: {
         debug() {
-            console.log(this.releves.map(r => r.yield))
+            console.log(this.extraction.computeReleves().map(r => r.yield))
         }
     },
     data() {

@@ -1,5 +1,4 @@
-import {ApplicationState, Extraction, newExtraction} from "./models";
-
+import {ApplicationState, Extraction} from "./models";
 
 export enum MutationType {
 ADD_EXTRACTION = "ADD_EXTRACTION",
@@ -7,7 +6,9 @@ ADD_TDS_TO_EXTRACTION = "ADD_TDS_TO_EXTRACTION",
 UPDATE_POIDS_CAFE = "UPDATE_POIDS_CAFE",
 UPDATE_POIDS_BOISSON = "UPDATE_POIDS_BOISSON",
 UPDATE_TDS = "UPDATE_TDS",
-REMOVE_TDS = "REMOVE_TDS"
+REMOVE_TDS = "REMOVE_TDS",
+DELETE_ALL_EXTRACTIONS = "DELETE_ALL_EXTRACTIONS",
+DELETE_EXTRACTION = "DELETE_EXTRACTION"
 }
 
 interface UpdatePoidsParams {
@@ -26,13 +27,17 @@ interface RemoveTdsParams {
     index: number
 }
 
+interface DeleteExtractionParams {
+    extractionId: string
+}
+
 function doesExtractionExist(state: ApplicationState, extractionId: string) {
     return extractionId in state.extractions
 }
 
 export const mutations = {
     [MutationType.ADD_EXTRACTION] (state: ApplicationState) {
-        let extraction = newExtraction();
+        let extraction = new Extraction();
 
         state.extractions[extraction.id] = extraction;
     },
@@ -71,6 +76,13 @@ export const mutations = {
                 console.log(extraction.relevesTDS)
             }
         }
+    },
+
+    [MutationType.DELETE_ALL_EXTRACTIONS] (state: ApplicationState) {
+        state.extractions = {}
+    },
+
+    [MutationType.DELETE_EXTRACTION] (state: ApplicationState, payload: DeleteExtractionParams) {
+        delete state.extractions[payload.extractionId]
     }
 }
-
