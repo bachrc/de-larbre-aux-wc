@@ -37,8 +37,8 @@ export default defineComponent({
     addTds() {
       this.$store.commit(MutationType.ADD_TDS_TO_EXTRACTION, this.extractionId)
     },
-    updateTds(value: number, index: number) {
-      this.$store.commit(MutationType.UPDATE_TDS, { extractionId: this.extractionId, index, value })
+    updateTds(tdsValue: string, index: number) {
+      this.$store.commit(MutationType.UPDATE_TDS, { extractionId: this.extractionId, index, value: parseFloat(tdsValue) })
     },
     removeTds(index: number) {
       this.$store.commit(MutationType.REMOVE_TDS, { extractionId: this.extractionId, index })
@@ -75,7 +75,7 @@ export default defineComponent({
         </div>
         <div v-for="(releve, index) in releves" class="flex flex-row">
           <InputField type="number" :label="'Relevé ' + (index + 1)" placeholder="Relevé de TDS" unit="%"
-            :value="releve.toString()" @input="(value: number) => updateTds(value, index)" />
+            :value="releve.toString()" @input="(value: string) => updateTds(value, index)" />
           <Button text="Supprimer.." @click="() => removeTds(index)" />
         </div>
         <div>

@@ -22,6 +22,15 @@ export function newExtraction() {
     }
 }
 
+export function averageReleve(extraction: Extraction) : Releve {
+    console.log(extraction.relevesTDS)
+    console.log(_.mean(extraction.relevesTDS))
+    return {
+        releveTds: _.mean(extraction.relevesTDS),
+        yield: computeYield(extraction)
+    }
+}
+
 export function computeYield(extraction: Extraction): number {
     return _.mean(computeReleves(extraction)
             .map(releve => releve.yield)

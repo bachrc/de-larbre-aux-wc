@@ -15,3 +15,4 @@ export function from(extraction: Extraction, valeurReleve: number): Releve {
 export function computeYield(poidsCafe: number, poidsBoisson: number, tds: number): number {
     return tds * (poidsBoisson / poidsCafe)
 }
+

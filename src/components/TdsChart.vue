@@ -3,7 +3,7 @@ import { defineComponent } from "vue"
 import { Scatter } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js'
 import annotationPlugin from 'chartjs-plugin-annotation';
-import { computeReleves, Extraction } from "../models/Extraction";
+import { averageReleve, computeReleves, Extraction } from "../models/Extraction";
 import { Releve } from "../models/Releve";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, annotationPlugin)
@@ -24,7 +24,7 @@ export default defineComponent({
             return computeReleves(this.extraction)
         },
         chartData(): any {
-            console.log(this.releves)
+            console.log(averageReleve(this.extraction))
             return {
                 datasets: [{
                     label: "Extraction",
@@ -32,6 +32,12 @@ export default defineComponent({
                     borderColor: "rgba(150, 0, 200, 0.5)",
                     data: this.releves,
                     showLine: true
+                }, {
+                    label: "TDS Moyen",
+                    backgroundColor: "rgba(254, 70, 255, 1)",
+                    borderColor: "rgba(254, 70, 255, 1)",
+                    data: [averageReleve(this.extraction)],
+                    radius: 6
                 }]
             }
         },
@@ -170,6 +176,5 @@ export default defineComponent({
 
 <template>
     <Scatter :chart-options="chartOptions" :chart-data="chartData" chart-id="tds-chart" :dataset-id-key="datasetIdKey"
-        :css-classes="cssClasses" :styles="styles" ref="tdschart" :width=400 :height=400 />
-    <span v-on:click="debug()">Aled</span>
+        :css-classes="cssClasses" :styles="styles" ref="tdschart" />
 </template>
