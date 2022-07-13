@@ -6,7 +6,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from './routes'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -15,6 +15,7 @@ const router = createRouter({
 })
 
 library.add(faTrash)
+library.add(faPenToSquare)
 
 let app = createApp(App);
 app.use(router);

@@ -15,6 +15,6 @@ export const store = createStore<ApplicationState>({
     getExtractionById: (state: ApplicationState) => (id: string): Extraction | undefined => state.extractions[id],
     getRelevesFromExtraction: (state: ApplicationState, getters) => (extractionId: string): number[] | undefined => getters.getExtractionById(extractionId)?.relevesTDS
   },
-  plugins: [vuexLocal.plugin],
+  //plugins: [vuexLocal.plugin],
   strict: process.env.NODE_ENV !== 'production'
 })

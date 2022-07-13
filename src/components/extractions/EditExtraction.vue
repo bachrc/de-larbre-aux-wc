@@ -8,6 +8,11 @@ import { MutationType } from "../../mutations"
 import { Extraction } from "../../models"
 
 export default defineComponent({
+  data() {
+    return {
+      isEditingName: false
+    }
+  },
   computed: {
     extractionId(): string {
       return this.$route.params.id as string;
@@ -26,6 +31,9 @@ export default defineComponent({
     updatePoidsBoisson(poids: number) {
       this.$store.commit(MutationType.UPDATE_POIDS_BOISSON, { extractionId: this.extractionId, poids })
     },
+    updateExtractionName(name: string) {
+      this.$store.commit(MutationType.UPDATE_EXTRACTION_NAME, { extractionId: this.extractionId, name })
+    },
     addTds() {
       this.$store.commit(MutationType.ADD_TDS_TO_EXTRACTION, this.extractionId)
     },
@@ -34,6 +42,9 @@ export default defineComponent({
     },
     removeTds(index: number) {
       this.$store.commit(MutationType.REMOVE_TDS, { extractionId: this.extractionId, index })
+    },
+    toggleEditName() {
+      this.isEditingName = !this.isEditingName
     }
   },
   components: {
@@ -49,9 +60,14 @@ export default defineComponent({
   <div class="flex flex-col">
     <div class="flex md:flex-row flex-col">
       <section class="w-1/2 flex flex-col">
-        <h1>{{ extraction.name }}</h1>
-        <div class="flex flex-row">
+        <div class="flex flex-row justify-between items-center">
+          <input v-if="isEditingName" type="text" :value="extraction.name" class="w-full"
+            @input="e => updateExtractionName(e.target.value)" @keyup.enter.native="toggleEditName" />
+          <h1 v-else class="text-2xl pb-8">{{ extraction.name }}</h1>
+          <font-awesome-icon class="h-8" icon="fa-solid fa-pen-to-square" @click="toggleEditName" />
+        </div>
 
+        <div class="flex flex-row">
           <InputField type="number" label="Poids de café" placeholder="Poids de café" unit="g"
             :value="extraction.poidsCafe.toString()" class="w-1/2" @input="updatePoidsCafe" />
           <InputField type="number" label="Poids de la boisson" placeholder="Poids de boisson"

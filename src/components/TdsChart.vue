@@ -22,6 +22,9 @@ export default defineComponent({
         chartData(): any {
             return {
                 datasets: [{
+                    label: "Extraction",
+                    backgroundColor: "rgba(150, 0, 200, 0.5)",
+                    borderColor: "rgba(150, 0, 200, 0.5)",
                     data: this.extraction.computeReleves(),
                     showLine: true
                 }]
