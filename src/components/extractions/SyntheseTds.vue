@@ -1,5 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { computeReleves } from "../../models/Extraction";
+import { Releve } from "../../models/Releve";
 
 export default defineComponent({
     props: {
@@ -11,6 +13,9 @@ export default defineComponent({
     computed: {
         extraction() {
             return this.$store.getters.getExtractionById(this.extractionId)
+        },
+        releves(): Releve[] {
+            return computeReleves(this.extraction)
         }
     }
 })
@@ -18,9 +23,9 @@ export default defineComponent({
 
 <template>
     <div class="flex flex-col">
-        <span v-for="(releve, index) in extraction.computeReleves()">
+        <span v-for="(releve, index) in releves">
             Yield {{ index + 1 }} : {{ releve.yield }}
         </span>
-        <span>Le yield moyen est de {{ extraction.yield }}</span>
+        <span v-if="extraction.yield">Le yield moyen est de {{ extraction.yield }}</span>
     </div>
 </template>

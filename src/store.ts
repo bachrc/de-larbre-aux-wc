@@ -1,12 +1,11 @@
 // store.ts
+import Vue from 'vue'
+import Vuex from 'vuex'
 import { createStore, Store } from 'vuex'
-import VuexPersistence from 'vuex-persist'
-import { ApplicationState, Extraction } from './models'
+import { ApplicationState } from './models/State'
 import { mutations } from './mutations'
-
-const vuexLocal = new VuexPersistence<ApplicationState>({
-  storage: window.localStorage
-})
+import createPersistedState from "vuex-persistedstate";
+import { Extraction } from './models/Extraction'
 
 export const store = createStore<ApplicationState>({
   state: new ApplicationState(),
@@ -15,6 +14,6 @@ export const store = createStore<ApplicationState>({
     getExtractionById: (state: ApplicationState) => (id: string): Extraction | undefined => state.extractions[id],
     getRelevesFromExtraction: (state: ApplicationState, getters) => (extractionId: string): number[] | undefined => getters.getExtractionById(extractionId)?.relevesTDS
   },
-  //plugins: [vuexLocal.plugin],
+  plugins: [createPersistedState()],
   strict: process.env.NODE_ENV !== 'production'
 })

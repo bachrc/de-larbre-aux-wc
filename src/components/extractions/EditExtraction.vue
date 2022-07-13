@@ -59,7 +59,7 @@ export default defineComponent({
 <template>
   <div class="flex flex-col">
     <div class="flex md:flex-row flex-col">
-      <section class="w-1/2 flex flex-col">
+      <section class="w-3/5 flex flex-col">
         <div class="flex flex-row justify-between items-center">
           <input v-if="isEditingName" type="text" :value="extraction.name" class="w-full"
             @input="e => updateExtractionName(e.target.value)" @keyup.enter.native="toggleEditName" />
@@ -82,7 +82,7 @@ export default defineComponent({
           <Button text="Ajouter un relevé" @click="addTds" />
         </div>
       </section>
-      <section class="w-1/2">
+      <section class="w-2/5">
         <TdsChart :extraction-id="extractionId" />
       </section>
     </div>

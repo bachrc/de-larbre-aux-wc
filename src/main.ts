@@ -7,6 +7,7 @@ import { routes } from './routes'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import Vuex from 'vuex';
 
 const router = createRouter({
     history: createWebHashHistory(),

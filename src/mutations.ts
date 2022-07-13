@@ -1,4 +1,5 @@
-import {ApplicationState, Extraction} from "./models";
+import {ApplicationState} from "./models";
+import { newExtraction } from "./models/Extraction";
 
 
 export enum MutationType {
@@ -44,7 +45,7 @@ function doesExtractionExist(state: ApplicationState, extractionId: string) {
 
 export const mutations = {
     [MutationType.ADD_EXTRACTION] (state: ApplicationState) {
-        let extraction = new Extraction();
+        let extraction = newExtraction();
 
         state.extractions[extraction.id] = extraction;
     },

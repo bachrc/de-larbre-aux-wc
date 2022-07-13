@@ -2,8 +2,9 @@
 import { defineComponent } from "vue"
 import { Scatter } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js'
-import { Extraction, Releve } from "../models"
 import annotationPlugin from 'chartjs-plugin-annotation';
+import { computeReleves, Extraction } from "../models/Extraction";
+import { Releve } from "../models/Releve";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, annotationPlugin)
 
@@ -19,13 +20,17 @@ export default defineComponent({
         extraction(): Extraction {
             return this.$store.getters.getExtractionById(this.extractionId)
         },
+        releves(): Releve[] {
+            return computeReleves(this.extraction)
+        },
         chartData(): any {
+            console.log(this.releves)
             return {
                 datasets: [{
                     label: "Extraction",
                     backgroundColor: "rgba(150, 0, 200, 0.5)",
                     borderColor: "rgba(150, 0, 200, 0.5)",
-                    data: this.extraction.computeReleves(),
+                    data: this.releves,
                     showLine: true
                 }]
             }
@@ -149,11 +154,6 @@ export default defineComponent({
                     }
                 }
             }
-        }
-    },
-    methods: {
-        debug() {
-            console.log(this.extraction.computeReleves().map(r => r.yield))
         }
     },
     data() {
