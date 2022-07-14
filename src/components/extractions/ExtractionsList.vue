@@ -24,7 +24,7 @@ export default defineComponent({
     components: { Button }
 })
 </script>
-
+    
 <template>
     <div class="flex flex-col">
         <Button text="Ajouter une extraction" @click="addExtraction"></Button>

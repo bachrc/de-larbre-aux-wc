@@ -2,6 +2,7 @@
 import { defineComponent } from "vue";
 import { computeReleves } from "../../models/Extraction";
 import { Releve } from "../../models/Releve";
+import { computeYield } from "../../models/Extraction";
 
 export default defineComponent({
     props: {
@@ -16,16 +17,16 @@ export default defineComponent({
         },
         releves(): Releve[] {
             return computeReleves(this.extraction)
+        },
+        yield(): number {
+            return computeYield(this.extraction)
         }
     }
 })
 </script>
 
-<template>
-    <div class="flex flex-col">
-        <span v-for="(releve, index) in releves">
-            Yield {{ index + 1 }} : {{ releve.yield }}
-        </span>
-        <span v-if="extraction.yield">Le yield moyen est de {{ extraction.yield }}</span>
+<template >
+    <div class="flex flex-col place-content-center">
+        <span>Le yield moyen est de {{ yield }}%</span>
     </div>
 </template>
