@@ -11,7 +11,8 @@ UPDATE_TDS = "UPDATE_TDS",
 REMOVE_TDS = "REMOVE_TDS",
 DELETE_ALL_EXTRACTIONS = "DELETE_ALL_EXTRACTIONS",
 DELETE_EXTRACTION = "DELETE_EXTRACTION",
-UPDATE_EXTRACTION_NAME = "UPDATE_EXTRACTION_NAME"
+UPDATE_EXTRACTION_NAME = "UPDATE_EXTRACTION_NAME",
+UPDATE_EXTRACTION_COMMENTAIRE = "UPDATE_EXTRACTION_COMMENTAIRE"
 }
 
 interface UpdatePoidsParams {
@@ -33,6 +34,10 @@ interface UpdateTdsParams {
 interface RemoveTdsParams {
     extractionId: string,
     index: number
+}
+interface UpdateCommentaireParams {
+    extractionId: string,
+    commentaire: string
 }
 
 interface DeleteExtractionParams {
@@ -98,5 +103,11 @@ export const mutations = {
 
     [MutationType.DELETE_EXTRACTION] (state: ApplicationState, payload: DeleteExtractionParams) {
         delete state.extractions[payload.extractionId]
+    },
+
+    [MutationType.UPDATE_EXTRACTION_COMMENTAIRE] (state: ApplicationState, payload: UpdateCommentaireParams) {
+        if(doesExtractionExist(state, payload.extractionId)) {
+            state.extractions[payload.extractionId].commentaire = payload.commentaire
+        }
     }
 }

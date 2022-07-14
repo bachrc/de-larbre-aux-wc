@@ -216,9 +216,9 @@ export default defineComponent({
 
     <div v-for="extraction in otherExtractions">
         <input type="checkbox" :checked="extraction.id in extractionsToCompare"
-            v-on:input="_ => toggleExtractionToComparison(extraction)" /> <span>{{
-                    extraction.name
-            }}
+            v-on:input="_ => toggleExtractionToComparison(extraction)" />
+        <span>
+            {{ extraction.name }}
         </span>
     </div>
 

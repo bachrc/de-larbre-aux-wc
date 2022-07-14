@@ -10,7 +10,8 @@ import { Extraction } from "../../models/Extraction"
 export default defineComponent({
   data() {
     return {
-      isEditingName: false
+      isEditingName: false,
+      isEditingCommentaire: false
     }
   },
   computed: {
@@ -45,7 +46,13 @@ export default defineComponent({
     },
     toggleEditName() {
       this.isEditingName = !this.isEditingName
-    }
+    },
+    toggleEditCommentaire() {
+      this.isEditingCommentaire = !this.isEditingCommentaire
+    },
+    updateExtractionCommentaire(commentaire: string) {
+      this.$store.commit(MutationType.UPDATE_EXTRACTION_COMMENTAIRE, { extractionId: this.extractionId, commentaire })
+    },
   },
   components: {
     InputField,
@@ -76,7 +83,12 @@ export default defineComponent({
             :value="releve.toString()" class="col-span-2" @input="(value: string) => updateTds(value, index)" />
         </template>
 
-        <font-awesome-icon class="h-10" icon="fa-solid fa-square-plus" @click="addTds" />
+        <font-awesome-icon class="h-10 col-span-3" icon="fa-solid fa-square-plus" @click="addTds" />
+
+        <font-awesome-icon class="h-8" icon="fa-solid fa-pen-to-square" @click="toggleEditCommentaire" />
+        <textarea v-if="isEditingCommentaire" type="text" :value="extraction.commentaire" class="w-full col-span-2"
+          @input="e => updateExtractionCommentaire(e.target.value)" @keyup.escape.native="toggleEditCommentaire" />
+        <span v-else class="col-span-2">{{ extraction.commentaire ?? "Commentaire.." }}</span>
       </section>
       <section class="w-2/5">
         <TdsChart :extraction-id="extractionId" />

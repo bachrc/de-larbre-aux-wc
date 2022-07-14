@@ -7,6 +7,7 @@ import { Releve, from } from './Releve';
 export interface Extraction {
     id: string;
     name: string;
+    commentaire: string;
     poidsCafe: number;
     poidsBoisson: number;
     relevesTDS: number[];
@@ -16,6 +17,7 @@ export function newExtraction() {
     return {
         id : uuidv4(),
         name : defaultName(),
+        commentaire: "",
         poidsCafe : 0,
         poidsBoisson : 0,
         relevesTDS : []
