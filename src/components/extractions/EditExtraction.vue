@@ -69,7 +69,8 @@ export default defineComponent({
       <section class="w-3/5 grid grid-cols-[50px_1fr_1fr] gap-y-4 gap-x-4 auto-rows-min items-end">
         <font-awesome-icon class="h-8" icon="fa-solid fa-pen-to-square" @click="toggleEditName" />
         <input v-if="isEditingName" type="text" :value="extraction.name" class="w-full col-span-2"
-          @input="e => updateExtractionName(e.target.value)" @keyup.enter.native="toggleEditName" />
+          @input="e => updateExtractionName((e.target as HTMLInputElement).value)"
+          @keyup.enter.native="toggleEditName" />
         <h1 v-else class="text-2xl col-span-2">{{ extraction.name }}</h1>
 
         <InputField type="number" label="Poids de café" placeholder="Poids de café" unit="g"
@@ -87,7 +88,8 @@ export default defineComponent({
 
         <font-awesome-icon class="h-8" icon="fa-solid fa-pen-to-square" @click="toggleEditCommentaire" />
         <textarea v-if="isEditingCommentaire" type="text" :value="extraction.commentaire" class="w-full col-span-2"
-          @input="e => updateExtractionCommentaire(e.target.value)" @keyup.escape.native="toggleEditCommentaire" />
+          @input="e => updateExtractionCommentaire((e.target as HTMLInputElement).value)"
+          @keyup.escape.native="toggleEditCommentaire" />
         <span v-else class="col-span-2">{{ extraction.commentaire ?? "Commentaire.." }}</span>
       </section>
       <section class="w-2/5">
