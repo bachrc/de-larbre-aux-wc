@@ -26,6 +26,7 @@ export function averageReleve(extraction: Extraction) : Releve {
     console.log(extraction.relevesTDS)
     console.log(_.mean(extraction.relevesTDS))
     return {
+        nom: extraction.name,
         releveTds: _.mean(extraction.relevesTDS),
         yield: computeYield(extraction)
     }

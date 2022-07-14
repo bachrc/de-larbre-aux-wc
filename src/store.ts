@@ -12,7 +12,8 @@ export const store = createStore<ApplicationState>({
   mutations,
   getters: {
     getExtractionById: (state: ApplicationState) => (id: string): Extraction | undefined => state.extractions[id],
-    getRelevesFromExtraction: (state: ApplicationState, getters) => (extractionId: string): number[] | undefined => getters.getExtractionById(extractionId)?.relevesTDS
+    getRelevesFromExtraction: (state: ApplicationState, getters) => (extractionId: string): number[] | undefined => getters.getExtractionById(extractionId)?.relevesTDS,
+    getExtractionsButId: (state: ApplicationState) => (idToExclude: string): Extraction[] => Object.values(state.extractions).filter(extraction => extraction.id !== idToExclude),
   },
   plugins: [createPersistedState()],
   strict: process.env.NODE_ENV !== 'production'

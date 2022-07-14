@@ -5,6 +5,7 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { averageReleve, computeReleves, Extraction } from "../models/Extraction";
 import { Releve } from "../models/Releve";
+import { Extractions } from "../models/State";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, annotationPlugin)
 
@@ -23,6 +24,9 @@ export default defineComponent({
         releves(): Releve[] {
             return computeReleves(this.extraction)
         },
+        otherExtractions(): Extraction[] {
+            return this.$store.getters.getExtractionsButId(this.extractionId);
+        },
         chartData(): any {
             console.log(averageReleve(this.extraction))
             return {
@@ -38,13 +42,35 @@ export default defineComponent({
                     borderColor: "rgba(254, 70, 255, 1)",
                     data: [averageReleve(this.extraction)],
                     radius: 6
+                }, {
+                    label: "Autres relevés",
+                    backgroundColor: "rgba(155, 155, 155, 0.5)",
+                    borderColor: "rgba(155, 155, 155, 0.5)",
+                    data: Object.values(this.extractionsToCompare).map(averageReleve),
+                    radius: 5
                 }]
             }
         },
         chartOptions(): any {
             return {
                 plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                console.log(context)
+                                switch (context.dataset.label) {
+                                    case "Extraction":
+                                        return "Relevé " + (context.dataIndex + 1);
+                                    case "TDS Moyen":
+                                        return "TDS Moyen";
+                                    case "Autres relevés":
+                                        return context.raw.nom
+                                }
+                            }
+                        }
+                    },
                     autocolors: false,
+                    animation: false,
                     annotation: {
                         annotations: {
                             weak_and_underextracted: {
@@ -164,10 +190,21 @@ export default defineComponent({
     },
     data() {
         return {
+            extractionsToCompare: {} as Extractions,
             plugins: [annotationPlugin],
             datasetIdKey: "tds",
             cssClasses: "",
             styles: {},
+        }
+    },
+    methods: {
+        toggleExtractionToComparison(extraction: Extraction) {
+            if (extraction.id in this.extractionsToCompare) {
+                delete this.extractionsToCompare[extraction.id];
+            } else {
+                this.extractionsToCompare[extraction.id] = extraction;
+            }
+
         }
     }
 })
@@ -177,4 +214,13 @@ export default defineComponent({
 <template>
     <Scatter :chart-options="chartOptions" :chart-data="chartData" chart-id="tds-chart" :dataset-id-key="datasetIdKey"
         :css-classes="cssClasses" :styles="styles" ref="tdschart" />
+
+    <div v-for="extraction in otherExtractions">
+        <input type="checkbox" :checked="extraction.id in extractionsToCompare"
+            v-on:input="_ => toggleExtractionToComparison(extraction)" /> <span>{{
+                    extraction.name
+            }}
+        </span>
+    </div>
+
 </template>
