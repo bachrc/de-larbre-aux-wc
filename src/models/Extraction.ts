@@ -13,7 +13,7 @@ export interface Extraction {
     relevesTDS: number[];
 }
 
-export function newExtraction() {
+export function newExtraction(): Extraction {
     return {
         id : uuidv4(),
         name : defaultName(),

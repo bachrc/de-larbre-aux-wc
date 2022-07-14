@@ -9,7 +9,6 @@ UPDATE_POIDS_CAFE = "UPDATE_POIDS_CAFE",
 UPDATE_POIDS_BOISSON = "UPDATE_POIDS_BOISSON",
 UPDATE_TDS = "UPDATE_TDS",
 REMOVE_TDS = "REMOVE_TDS",
-DELETE_ALL_EXTRACTIONS = "DELETE_ALL_EXTRACTIONS",
 DELETE_EXTRACTION = "DELETE_EXTRACTION",
 UPDATE_EXTRACTION_NAME = "UPDATE_EXTRACTION_NAME",
 UPDATE_EXTRACTION_COMMENTAIRE = "UPDATE_EXTRACTION_COMMENTAIRE"
@@ -91,18 +90,14 @@ export const mutations = {
         }
     },
 
-    [MutationType.DELETE_ALL_EXTRACTIONS] (state: ApplicationState) {
-        state.extractions = {}
-    },
-
-    [MutationType.UPDATE_EXTRACTION_NAME] (state: ApplicationState, payload: UpdateExtractionNameParams) {
-        if(doesExtractionExist(state, payload.extractionId)) {
-            state.extractions[payload.extractionId].name = payload.name
+    [MutationType.UPDATE_EXTRACTION_NAME] (state: ApplicationState, params: UpdateExtractionNameParams) {
+        if(doesExtractionExist(state, params.extractionId)) {
+            state.extractions[params.extractionId].name = params.name
         }
     },
 
-    [MutationType.DELETE_EXTRACTION] (state: ApplicationState, payload: DeleteExtractionParams) {
-        delete state.extractions[payload.extractionId]
+    [MutationType.DELETE_EXTRACTION] (state: ApplicationState, params: DeleteExtractionParams) {
+        delete state.extractions[params.extractionId]
     },
 
     [MutationType.UPDATE_EXTRACTION_COMMENTAIRE] (state: ApplicationState, payload: UpdateCommentaireParams) {
