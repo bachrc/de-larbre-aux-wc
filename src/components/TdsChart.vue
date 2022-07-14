@@ -32,8 +32,8 @@ export default defineComponent({
             return {
                 datasets: [{
                     label: "Extraction",
-                    backgroundColor: "rgba(150, 0, 200, 0.5)",
-                    borderColor: "rgba(150, 0, 200, 0.5)",
+                    backgroundColor: "rgba(150, 0, 200, 0.8)",
+                    borderColor: "rgba(150, 0, 200, 0.8)",
                     data: this.releves,
                     showLine: true
                 }, {
@@ -44,8 +44,8 @@ export default defineComponent({
                     radius: 6
                 }, {
                     label: "Autres relevés",
-                    backgroundColor: "rgba(155, 155, 155, 0.5)",
-                    borderColor: "rgba(155, 155, 155, 0.5)",
+                    backgroundColor: "rgba(155, 155, 155, 0.8)",
+                    borderColor: "rgba(155, 155, 155, 0.8)",
                     data: Object.values(this.extractionsToCompare).map(averageReleve),
                     radius: 5
                 }]
@@ -56,8 +56,7 @@ export default defineComponent({
                 plugins: {
                     tooltip: {
                         callbacks: {
-                            label: function (context) {
-                                console.log(context)
+                            label: function (context: any) {
                                 switch (context.dataset.label) {
                                     case "Extraction":
                                         return "Relevé " + (context.dataIndex + 1);
@@ -79,7 +78,7 @@ export default defineComponent({
                                 xMax: 18,
                                 yMin: 0,
                                 yMax: 1.15,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(0, 125, 200, 0.20)'
                             },
                             underextracted: {
                                 type: 'box',
@@ -87,7 +86,7 @@ export default defineComponent({
                                 xMax: 18,
                                 yMin: 1.15,
                                 yMax: 1.45,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(0, 125, 200, 0.40)'
                             },
                             strong_and_underextracted: {
                                 type: 'box',
@@ -95,7 +94,7 @@ export default defineComponent({
                                 xMax: 18,
                                 yMin: 1.45,
                                 yMax: 2,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(0, 125, 200, 0.60)'
                             },
                             weak: {
                                 type: 'box',
@@ -103,7 +102,7 @@ export default defineComponent({
                                 xMax: 22,
                                 yMin: 0,
                                 yMax: 1.15,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(39, 212, 82, 0.2)'
                             },
                             ideal: {
                                 type: 'box',
@@ -111,7 +110,7 @@ export default defineComponent({
                                 xMax: 22,
                                 yMin: 1.15,
                                 yMax: 1.45,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(39, 212, 82, 0.4)'
                             },
                             strong: {
                                 type: 'box',
@@ -119,7 +118,7 @@ export default defineComponent({
                                 xMax: 22,
                                 yMin: 1.45,
                                 yMax: 2,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(39, 212, 82, 0.6)'
                             },
                             weak_and_overextracted: {
                                 type: 'box',
@@ -127,7 +126,7 @@ export default defineComponent({
                                 xMax: 30,
                                 yMin: 0,
                                 yMax: 1.15,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(200, 75, 0, 0.2)'
                             },
                             overextracted: {
                                 type: 'box',
@@ -135,7 +134,7 @@ export default defineComponent({
                                 xMax: 30,
                                 yMin: 1.15,
                                 yMax: 1.45,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(200, 75, 0, 0.4)'
                             },
                             strong_and_overextracted: {
                                 type: 'box',
@@ -143,7 +142,7 @@ export default defineComponent({
                                 xMax: 30,
                                 yMin: 1.45,
                                 yMax: 2,
-                                backgroundColor: 'rgba(255, 99, 132, 0.25)'
+                                backgroundColor: 'rgba(200, 75, 0, 0.6)'
                             }
                         }
                     }

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue"
-import { Extractions } from "../../models"
+import { Extractions } from "../../models/State"
 import { MutationType } from "../../mutations"
 import Button from "../common/Button.vue"
 
@@ -16,9 +16,6 @@ export default defineComponent({
         },
         deleteExtraction(extractionId: string) {
             this.$store.commit(MutationType.DELETE_EXTRACTION, { extractionId })
-        },
-        deleteAllExtractions() {
-            this.$store.commit(MutationType.DELETE_ALL_EXTRACTIONS)
         }
     },
     components: { Button }
@@ -28,13 +25,13 @@ export default defineComponent({
 <template>
     <div class="flex flex-col">
         <Button text="Ajouter une extraction" @click="addExtraction"></Button>
-        <Button text="Tout supprimer" @click="deleteAllExtractions"></Button>
         <div>
-            <div v-for="extraction in extractions">
+            <div v-for="extraction in extractions" class="flex flex-row px-8 items-baseline">
                 <router-link :to="{ name: 'extraction', params: { id: extraction.id } }">
-                    {{ extraction.name }}
+                    <span class="text-2xl">{{ extraction.name }}</span>
                 </router-link>
-                <font-awesome-icon icon="fa-solid fa-trash" @click="deleteExtraction(extraction.id)" />
+                <div class="grow"></div>
+                <font-awesome-icon class="h-6" icon="fa-solid fa-trash" @click="deleteExtraction(extraction.id)" />
             </div>
         </div>
     </div>

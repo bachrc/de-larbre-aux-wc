@@ -1,4 +1,4 @@
-import {ApplicationState} from "./models";
+import {ApplicationState} from "./models/State";
 import { newExtraction } from "./models/Extraction";
 
 
