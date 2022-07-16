@@ -1,5 +1,6 @@
 import {ApplicationState} from "./models/State";
 import { newExtraction } from "./models/Extraction";
+import { App } from "vue";
 
 
 export enum MutationType {
@@ -11,7 +12,8 @@ UPDATE_TDS = "UPDATE_TDS",
 REMOVE_TDS = "REMOVE_TDS",
 DELETE_EXTRACTION = "DELETE_EXTRACTION",
 UPDATE_EXTRACTION_NAME = "UPDATE_EXTRACTION_NAME",
-UPDATE_EXTRACTION_COMMENTAIRE = "UPDATE_EXTRACTION_COMMENTAIRE"
+UPDATE_EXTRACTION_COMMENTAIRE = "UPDATE_EXTRACTION_COMMENTAIRE",
+RESTORE_STATE = "RESTORE_STATE"
 }
 
 interface UpdatePoidsParams {
@@ -104,5 +106,8 @@ export const mutations = {
         if(doesExtractionExist(state, payload.extractionId)) {
             state.extractions[payload.extractionId].commentaire = payload.commentaire
         }
+    },
+    [MutationType.RESTORE_STATE] (state: ApplicationState, stateToRestore: string) {
+        state.extractions = (JSON.parse(stateToRestore) as ApplicationState).extractions
     }
 }

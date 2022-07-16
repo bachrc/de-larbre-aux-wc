@@ -22,7 +22,7 @@ body {
         <router-link to="/"><span class="logo">De l'arbre aux WC</span></router-link>
       </span>
     </header>
-    <section class="bg-[#FFF8D3]/80">
+    <section class="bg-[#FFF8D3]/80 px-6">
       <div class="my-4 container mx-auto">
         <router-view></router-view>
       </div>

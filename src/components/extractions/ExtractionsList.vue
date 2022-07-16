@@ -24,8 +24,11 @@ export default defineComponent({
     
 <template>
     <div class="flex flex-col">
-        <div class="flex flex-row">
-            <Button text="Sauvegarder les données" class="w-1/2" />
+        <div class="flex flex-row gap-4">
+            <router-link class="w-1/2" :to="{
+                name: 'save'
+            }"><Button text=" Sauvegarder les données" class="w-full" />
+            </router-link>
             <Button text="Ajouter une extraction" class="w-1/2" @click="addExtraction"></Button>
         </div>
 
