@@ -64,7 +64,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col px-6">
     <div class="flex md:flex-row flex-col">
       <section class="w-3/5 grid grid-cols-[50px_1fr_1fr] gap-y-4 gap-x-4 auto-rows-min items-end">
         <font-awesome-icon class="h-8" icon="fa-solid fa-pen-to-square" @click="toggleEditName" />

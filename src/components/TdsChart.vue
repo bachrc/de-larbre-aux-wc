@@ -46,7 +46,7 @@ export default defineComponent({
                     label: "Autres relevés",
                     backgroundColor: "rgba(155, 155, 155, 0.8)",
                     borderColor: "rgba(155, 155, 155, 0.8)",
-                    data: Object.values(this.extractionsToCompare).map(averageReleve),
+                    data: Object.values(this.extractionsAComparer).map(averageReleve),
                     radius: 5
                 }]
             }
@@ -189,7 +189,7 @@ export default defineComponent({
     },
     data() {
         return {
-            extractionsToCompare: {} as Extractions,
+            extractionsAComparer: {} as Extractions,
             plugins: [annotationPlugin],
             datasetIdKey: "tds",
             cssClasses: "",
@@ -198,10 +198,10 @@ export default defineComponent({
     },
     methods: {
         toggleExtractionToComparison(extraction: Extraction) {
-            if (extraction.id in this.extractionsToCompare) {
-                delete this.extractionsToCompare[extraction.id];
+            if (extraction.id in this.extractionsAComparer) {
+                delete this.extractionsAComparer[extraction.id];
             } else {
-                this.extractionsToCompare[extraction.id] = extraction;
+                this.extractionsAComparer[extraction.id] = extraction;
             }
 
         }
@@ -215,7 +215,7 @@ export default defineComponent({
         :css-classes="cssClasses" :styles="styles" ref="tdschart" />
 
     <div v-for="extraction in otherExtractions">
-        <input type="checkbox" :checked="extraction.id in extractionsToCompare"
+        <input type="checkbox" :checked="extraction.id in extractionsAComparer"
             v-on:input="_ => toggleExtractionToComparison(extraction)" />
         <span>
             {{ extraction.name }}

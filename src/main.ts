@@ -7,6 +7,7 @@ import { routes } from './routes'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faTrash, faPenToSquare, faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -18,6 +19,7 @@ library.add(faTrash)
 library.add(faPenToSquare)
 library.add(faMinusSquare)
 library.add(faPlusSquare)
+library.add(faGithub)
 
 
 let app = createApp(App);

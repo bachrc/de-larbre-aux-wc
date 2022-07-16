@@ -24,14 +24,29 @@ export default defineComponent({
     
 <template>
     <div class="flex flex-col">
-        <Button text="Ajouter une extraction" @click="addExtraction"></Button>
-        <div>
-            <div v-for="extraction in extractions" class="flex flex-row px-8 items-baseline">
-                <router-link :to="{ name: 'extraction', params: { id: extraction.id } }">
-                    <span class="text-2xl">{{ extraction.name }}</span>
-                </router-link>
-                <div class="grow"></div>
-                <font-awesome-icon class="h-6" icon="fa-solid fa-trash" @click="deleteExtraction(extraction.id)" />
+        <div class="flex flex-row">
+            <Button text="Sauvegarder les données" class="w-1/2" />
+            <Button text="Ajouter une extraction" class="w-1/2" @click="addExtraction"></Button>
+        </div>
+
+        <div class="flex flex-row">
+            <div class="w-1/2 px-8">
+                <p class="text-3xl mb-8">
+                    De l'Arbre aux WC ! En passant par le café.
+                </p>
+                <p class="text-2xl text-justify">
+                    Cette application, réservée pour le café de spécialité, permet de renseigner vos relevés TDS
+                    afin de situer votre extraction sur les normes du SCA (Speciality Coffee Association).
+                </p>
+            </div>
+            <div class="w-1/2">
+                <div v-for="extraction in extractions" class="flex flex-row px-8 items-baseline">
+                    <router-link :to="{ name: 'extraction', params: { id: extraction.id } }">
+                        <span class="text-2xl">{{ extraction.name }}</span>
+                    </router-link>
+                    <div class="grow"></div>
+                    <font-awesome-icon class="h-6" icon="fa-solid fa-trash" @click="deleteExtraction(extraction.id)" />
+                </div>
             </div>
         </div>
     </div>

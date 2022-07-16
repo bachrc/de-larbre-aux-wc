@@ -14,22 +14,26 @@ body {
   background-size: cover;
   background-image: url("./assets/wickedbackground2.svg");
 }
-
-.contained-app {
-  background-color: rgba(255, 248, 211, 0.8);
-}
 </style>
 <template>
-  <main class="flex flex-col">
-    <header class="flex mx-auto h-24 items-center">
+  <main class="flex flex-col gap-2 container mx-auto">
+    <header class="flex h-24 items-center">
       <span class="text-5xl">
         <router-link to="/"><span class="logo">De l'arbre aux WC</span></router-link>
       </span>
     </header>
-    <section class="contained-app">
-      <div class="container mx-auto my-4">
+    <section class="bg-[#FFF8D3]/80">
+      <div class="my-4 container mx-auto">
         <router-view></router-view>
       </div>
     </section>
+    <footer class="flex flex-row text-center items-center container rounded-full bg-[#FFF8D3]/80 px-12">
+      <span class="justify-self-start">De l'Arbre aux WC<br />
+        Yohann Bacha - <a href="https://dessert.coffee">https://dessert.coffee</a></span>
+      <div class="grow"></div>
+      <a class="justify-self-end" href="https://github.com/bachrc/de-larbre-aux-wc">
+        <font-awesome-icon icon="fa-brands fa-github" class="h-8" />
+      </a>
+    </footer>
   </main>
 </template>
