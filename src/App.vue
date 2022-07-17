@@ -39,5 +39,11 @@ body {
   </main>
 </template>
 <script lang="ts">
+import { defineComponent } from "vue";
+import ReloadPWAVue from "./components/ReloadPWA.vue";
+
+export default defineComponent({
+  components: { ReloadPWAVue }
+})
 
 </script>

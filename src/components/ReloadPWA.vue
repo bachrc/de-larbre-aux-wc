@@ -32,8 +32,8 @@ export default defineComponent({
     },
     methods: {
         async close() {
-            this.offlineReady.value = false;
-            this.needRefresh.value = false;
+            this.offlineReady = false;
+            this.needRefresh = false;
         },
         async updateServiceWorker() {
             await updateServiceWorker();
