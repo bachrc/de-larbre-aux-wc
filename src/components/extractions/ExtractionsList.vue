@@ -25,7 +25,7 @@ export default defineComponent({
 <template>
     <div class="flex flex-col">
         <div class="flex sm:flex-row flex-col gap-4">
-            <router-link class="sm:w-1/2 w-full" :to="{
+            <router-link class="sm:w-1/2" :to="{
                 name: 'save'
             }"><Button text=" Sauvegarder les données" class="w-full" />
             </router-link>
@@ -43,7 +43,7 @@ export default defineComponent({
                 </p>
             </div>
             <div class="w-full sm:w-1/2">
-                <h2 class="text-3xl py-4">Extractions</h2>
+                <h2 class="text-3xl py-4 sm:py-0 sm:px-8">Extractions</h2>
                 <div v-for="extraction in extractions" class="flex flex-row sm:px-8 items-baseline">
                     <router-link :to="{ name: 'extraction', params: { id: extraction.id } }">
                         <span class="text-2xl">{{ extraction.name }}</span>
