@@ -28,11 +28,15 @@ export function averageReleve(extraction: Extraction) : Releve {
     return {
         nom: extraction.name,
         releveTds: _.mean(extraction.relevesTDS),
-        yield: computeYield(extraction)
+        yield: computeYield(extraction) ?? 0
     }
 }
 
-export function computeYield(extraction: Extraction): number {
+export function computeYield(extraction: Extraction): number | undefined {
+    if(extraction.relevesTDS.length == 0) {
+        return undefined
+    }
+    
     return _.mean(computeReleves(extraction)
             .map(releve => releve.yield)
         )

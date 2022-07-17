@@ -16,6 +16,7 @@ body {
 }
 </style>
 <template>
+  <ReloadPWA />
   <main class="flex flex-col gap-2 container mx-auto">
     <header class="flex h-24 items-center">
       <span class="text-5xl">
@@ -37,3 +38,6 @@ body {
     </footer>
   </main>
 </template>
+<script lang="ts">
+
+</script>

@@ -18,7 +18,7 @@ export default defineComponent({
         releves(): Releve[] {
             return computeReleves(this.extraction)
         },
-        yield(): number {
+        yield(): number | undefined {
             return computeYield(this.extraction)
         }
     }
@@ -27,6 +27,6 @@ export default defineComponent({
 
 <template >
     <div class="flex flex-col place-content-center">
-        <span>Le yield moyen est de {{ yield }}%</span>
+        <span>Le yield moyen est de {{ yield ?? 0 }}%</span>
     </div>
 </template>

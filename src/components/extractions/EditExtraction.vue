@@ -66,7 +66,7 @@ export default defineComponent({
 <template>
   <div class="flex flex-col">
     <div class="flex md:flex-row flex-col">
-      <section class="w-3/5 grid grid-cols-[50px_1fr_1fr] gap-y-4 gap-x-4 auto-rows-min items-end">
+      <section class="sm:w-3/5 w-full grid grid-cols-[50px_1fr_1fr] gap-y-4 gap-x-4 auto-rows-min items-end">
         <font-awesome-icon class="h-8" icon="fa-solid fa-pen-to-square" @click="toggleEditName" />
         <input v-if="isEditingName" type="text" :value="extraction.name" class="w-full col-span-2"
           @input="e => updateExtractionName((e.target as HTMLInputElement).value)"
@@ -92,7 +92,7 @@ export default defineComponent({
           @keyup.escape.native="toggleEditCommentaire" />
         <span v-else class="col-span-2">{{ extraction.commentaire ?? "Commentaire.." }}</span>
       </section>
-      <section class="w-2/5">
+      <section class="sm:w-2/5 w-full">
         <TdsChart :extraction-id="extractionId" />
       </section>
     </div>
